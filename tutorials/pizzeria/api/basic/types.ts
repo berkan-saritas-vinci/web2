@@ -9,14 +9,6 @@ interface PizzaToUpdate {
   content?: string;
 }
 
-interface Drink {
-  id: number;
-  title: string;
-  image: string;
-  volume: number;
-  price: number;
-}
-
 interface Film {
 id: number;
 title: string;
@@ -25,9 +17,22 @@ duration: number;
 budget?:number;
 description?: string;
 imageUrl?: string;
-
 }
 
-type NewPizza = Omit<Pizza, "id">;
+interface Drink {
+  id: number;
+  title: string;
+  image: string;
+  volume: number;
+  price: number;
+}
 
-export type { Pizza, NewPizza, PizzaToUpdate, Drink, Film };
+
+
+
+
+type NewPizza = Omit<Pizza, "id">;
+type NewDrink = Omit<Drink, "id">;
+
+export type { Pizza, NewPizza, PizzaToUpdate, Drink, NewDrink, Film };
+
