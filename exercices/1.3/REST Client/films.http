@@ -1,3 +1,11 @@
 ### Read all films
 GET http://localhost:3000/films
 
+### READ ALL FILTERED
+GET http://localhost:3000/films?minimum-duration=value
+
+### READ ONE
+GET http://localhost:3000/films/1
+
+### CREATE ONE
+POST http://localhost:3000/films

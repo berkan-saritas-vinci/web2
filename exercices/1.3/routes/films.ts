@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import { Film } from "../types";
+import { Film, NewFilm } from "../types";
 
 const router = Router();
 
-const defaultFilms: Film[] = [
+const films: Film[] = [
   {
     id: 1,
     title: "Shang-Chi and the Legend of the Ten Rings",
@@ -60,10 +60,93 @@ const defaultFilms: Film[] = [
     budget: 23,
   },
 ];
-// Read all films
 
-router.get("/", (_req, res) => {
-  return res.json(defaultFilms);
+// Read all films, filtered by minimum-duration if the query param exists
+router.get("/", (req, res) => {
+  if (req.query["minimum-duration"] === undefined) {
+    return res.send(films);
+  }
+
+  const minDuration = Number(req.query["minimum-duration"]);
+
+  if (isNaN(minDuration) || minDuration <= 0) {
+    res.json("Wrong minimum duration"); // bad practice (will be improved in exercise 1.5)
+  }
+
+  const filteredFilms = films.filter((film) => film.duration >= minDuration);
+
+  return res.send(filteredFilms);
+});
+
+// Read a film by id
+router.get("/:id", (req, res) => {
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    return res.json("Wrong minimum duration"); // bad practice (will be improved in exercise 1.5)
+  }
+
+  const film = films.find((film) => film.id === id);
+
+  if (film === undefined) {
+    return res.json("Resource not found"); // bad practice (will be improved in exercise 1.5)
+  }
+
+  return res.send(film);
+});
+
+// Create a new film
+router.post("/", (req, res) => {
+  const body: unknown = req.body;
+
+  if (
+    !body ||
+    typeof body !== "object" ||
+    !("title" in body) ||
+    !("director" in body) ||
+    !("duration" in body) ||
+    typeof body.title !== "string" ||
+    typeof body.director !== "string" ||
+    typeof body.duration !== "number" ||
+    !body.title.trim() ||
+    !body.director.trim() ||
+    body.duration <= 0 ||
+    ("budget" in body &&
+      (typeof body.budget !== "number" || body.budget <= 0)) ||
+    ("description" in body &&
+      (typeof body.description !== "string" || !body.description.trim())) ||
+    ("imageUrl" in body &&
+      (typeof body.imageUrl !== "string" || !body.imageUrl.trim()))
+  ) {
+    return res.json("Wrong body format"); // bad practice (will be improved in exercise 1.5)
+  }
+
+  // Challenge : To be complete, we should check that the keys of the body object are only the ones we expect
+  const expectedKeys = [
+    "title",
+    "director",
+    "duration",
+    "budget",
+    "description",
+    "imageUrl",
+  ];
+  const bodyKeys = Object.keys(body);
+  const extraKeys = bodyKeys.filter((key) => !expectedKeys.includes(key));
+  if (extraKeys.length > 0) {
+    return res.json("Extra keys in body: " + extraKeys.join(", "));
+  }
+  // End of challenge
+
+  const newFilm = body as NewFilm;
+
+  const nextId =
+    films.reduce((acc, film) => (film.id > acc ? film.id : acc), 0) + 1;
+
+  const addedFilm: Film = { id: nextId, ...newFilm };
+
+  films.push(addedFilm);
+
+  return res.json(addedFilm);
 });
 
 export default router;
