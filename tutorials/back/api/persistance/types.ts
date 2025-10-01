@@ -29,5 +29,6 @@ imageUrl?: string;
 }
 
 type NewPizza = Omit<Pizza, "id">;
+type NewDrink = Omit<Drink, "id">;
 
-export type { Pizza, NewPizza, PizzaToUpdate, Drink, Film };
+export type { Pizza, NewPizza, PizzaToUpdate, Drink, Film, NewDrink };

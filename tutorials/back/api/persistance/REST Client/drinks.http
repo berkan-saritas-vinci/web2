@@ -5,75 +5,37 @@ GET http://localhost:3000/drinks
 
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000
-GET {{baseUrl}}/pizzas
+GET {{baseUrl}}/drinks
 
-### Read all pizzas sorted by title (ascending)
-GET {{baseUrl}}/pizzas/?order=+title
+### Read all drinks sorted by title (ascending)
+GET {{baseUrl}}/drinks/?order=+title
 
-### Read all pizzas sorted by title (descending)
-GET {{baseUrl}}/pizzas/?order=-title
+### Read all drinks sorted by title (descending)
+GET {{baseUrl}}/drinks/?order=-title
 
-### Read pizza identified by 2
-GET {{baseUrl}}/pizzas/2
+### Read drinks identified by 2
+GET {{baseUrl}}/drinks/2
 
 ### Create a pizza
-POST {{baseUrl}}/pizzas
+POST {{baseUrl}}/drinks
 Content-Type: application/json
 
 {
-    "title":"Magic Green",
-    "content":"Epinards, Brocolis, Olives vertes, Basilic"
+    "title":"Uludag",
+    "image":"nothing",
+    "volume": 5,
+    "price": 12.5
 }
 
-### Delete pizza identified by 2
-DELETE {{baseUrl}}/pizzas/2
+### Delete drink identified by 2
+DELETE {{baseUrl}}/drinks/2
 
-### Update the pizza identified by 6
-PATCH {{baseUrl}}/pizzas/6
+//error 404
+### Update the drink identified by 6
+PATCH {{baseUrl}}/drinks/2
 Content-Type: application/json
 
 {
-    "title":"Magic Green 2"
+    "title":"7-up"
 }
 
-
-
-
-######### ERROR OPERATION  ###########
-
-### Read pizza which does not exists
-GET {{baseUrl}}/pizzas/100
-
-### Create a pizza which lacks a property
-POST {{baseUrl}}/pizzas
-Content-Type: application/json
-
-{
-    "content":"Epinards, Brocolis, Olives vertes, Basilic"
-}
-
-### Create a pizza without info for a property
-POST {{baseUrl}}/pizzas
-Content-Type: application/json
-
-{
-    "title":"",
-    "content":"Epinards, Brocolis, Olives vertes, Basilic"
-}
-
-### Update for a pizza which does not exist
-PATCH {{baseUrl}}/pizzas/200
-Content-Type: application/json
-
-{
-    "title":"Magic Green 2"
-}
-
-### Update for a pizza which does not provide any info for a property
-PATCH {{baseUrl}}/pizzas/1
-Content-Type: application/json
-
-{
-    "title":"Magic Green 2",
-    "content":""
-}
