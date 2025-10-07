@@ -1,0 +1,41 @@
+######### NORMAL OPERATION  ###########
+
+### Read all drinks
+GET http://localhost:3000/drinks
+
+### Read all pizzas with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/drinks
+
+### Read all drinks sorted by title (ascending)
+GET {{baseUrl}}/drinks/?order=+title
+
+### Read all drinks sorted by title (descending)
+GET {{baseUrl}}/drinks/?order=-title
+
+### Read drinks identified by 2
+GET {{baseUrl}}/drinks/2
+
+### Create a pizza
+POST {{baseUrl}}/drinks
+Content-Type: application/json
+
+{
+    "title":"Uludag",
+    "image":"nothing",
+    "volume": 5,
+    "price": 12.5
+}
+
+### Delete drink identified by 2
+DELETE {{baseUrl}}/drinks/2
+
+//error 404
+### Update the drink identified by 6
+PATCH {{baseUrl}}/drinks/2
+Content-Type: application/json
+
+{
+    "title":"7-up"
+}
+
