@@ -1,3 +1,37 @@
+interface PageTitleProps {
+  title: string;
+}
+
+interface CinemaProps {
+  name: string;
+  movie1Title: string;
+  movie1Director: string;
+  movie2Title: string;
+  movie2Director: string;
+}
+
+const PageTitle = (props: PageTitleProps) => {
+  return <h1>{props.title}</h1>
+}
+
+const Cinema = (props: CinemaProps) => {
+return (
+  <div>
+    <h2>{props.name}</h2>
+    <ul>
+      <li>
+        <strong>{props.movie1Title}</strong> - Réalisateur :{" "}
+        {props.movie1Director}
+      </li>
+      <li>
+        <strong>{props.movie2Title}</strong> - Réalisateur :{" "}
+        {props.movie2Director}
+      </li>
+    </ul>
+  </div>
+)
+}
+
 const App = () => {
   const pageTitle = "Informations sur les films dans les cinémas";
 
@@ -12,6 +46,7 @@ const App = () => {
   const cinema2Movie1Director = "Director C";
   const cinema2Movie2Title = "Film 2 - Toison d'Or";
   const cinema2Movie2Director = "Director D";
+
 
   return (
     <div>
@@ -36,30 +71,5 @@ const App = () => {
   );
 };
 
-const PageTitle = (props: { title: string }) => {
-  return <h1>{props.title}</h1>;
-};
-
-const Cinema = (props: {
-  name: string;
-  movie1Title: string;
-  movie1Director: string;
-  movie2Title: string;
-  movie2Director: string;
-}) => (
-  <div>
-    <h2>{props.name}</h2>
-    <ul>
-      <li>
-        <strong>{props.movie1Title}</strong> - Réalisateur :{" "}
-        {props.movie1Director}
-      </li>
-      <li>
-        <strong>{props.movie2Title}</strong> - Réalisateur :{" "}
-        {props.movie2Director}
-      </li>
-    </ul>
-  </div>
-);
 
 export default App;
