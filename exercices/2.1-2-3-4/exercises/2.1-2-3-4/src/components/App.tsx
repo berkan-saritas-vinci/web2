@@ -1,16 +1,5 @@
 import Cinema from "./Cinema";
-
-interface PageTitleProps {
-  title: string;
-}
-
-
-
-const PageTitle = (props: PageTitleProps) => {
-  return <h1>{props.title}</h1>
-}
-
-
+import PageTitle from "./PageTitle";
 
 const App = () => {
   const pageTitle = "Informations sur les films dans les cinémas";
