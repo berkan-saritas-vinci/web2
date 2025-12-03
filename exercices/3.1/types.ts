@@ -58,6 +58,11 @@ interface Film {
 
 type NewFilm = Omit<Film, "id">;
 
+interface Comment {
+  filmId: number;
+  username: string;
+  comment: string;
+}
 
 export type {
   Pizza,
@@ -71,5 +76,6 @@ export type {
   AuthenticatedRequest,
   JwtPayload,
   Film,
-  NewFilm
+  NewFilm,
+  Comment
 };
